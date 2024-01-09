@@ -1,0 +1,10 @@
+import argparse
+parser = argparse.ArgumentParser(description='Hyper-parameters management')
+parser.add_argument('--lr', default=2e-4, type=float, help='Learning rate')
+parser.add_argument('--weight_decay', default=1e-5, type=float, help='weight_decay rate')
+parser.add_argument('--batch_size', type=int, default=20, help='batch size of trainset')
+parser.add_argument('--num_epochs', type=int, default=500, help='Number of iterations')
+parser.add_argument('--log_file', default='log_file', help='fixed log root path')
+parser.add_argument('--save_dir', default='save_dir', help='fixed save-model root path')
+parser.add_argument('--save_model', default='save_model', help='fixed save-model root path')
+args = parser.parse_args()
