@@ -286,7 +286,6 @@ class GMAR(nn.Module):
         self.conv3 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=4, stride=2, padding=1)
         self.pos_emb = nn.Parameter(torch.zeros(1, 1024, 128))
         self.drop = nn.Dropout2d(config.embd_pdrop)
-        # transformer, input: 16*16*config.n_embd
         self.AxialAttblocks = []
         for _ in range(config.n_layer // 2):
             self.AxialAttblocks.append(BlockAxial(config))
@@ -295,7 +294,6 @@ class GMAR(nn.Module):
         for _ in range(config.n_layer // 2):
             self.CausalAttblocks.append(CausalAttention(config))
         self.CausalAttblocks = nn.Sequential(*self.CausalAttblocks)
-        # decoder, input: 16*16*config.n_embd
         self.ln_f = nn.LayerNorm(128)
         self.convt1 = nn.ConvTranspose2d(256, 128, kernel_size=4, stride=2, padding=1)
         self.convt2 = nn.ConvTranspose2d(128, 64, kernel_size=4, stride=2, padding=1)

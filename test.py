@@ -80,37 +80,37 @@ def test_GNP_GAN(model, val_loader, criterion):
 
     return mse, psnr, ssim_val,val_snr
 
-# def test_GMAR(model, test_loader, criterion, device):
-#     model.eval()
-#     mse = 0.0
-#     psnr = 0.0
-#     ssim = 0.0
-#     save_path = "data/data_C3/structure_weak"
-#     feature_counter = 1
-#     with torch.no_grad():
-#         for input, target in test_loader:
-#             input, target = input.float(), target.float()
-#             input = input.cuda()
-#             target = target.cuda()
-#             output = model(input)
-#             loss = criterion(output, target)
-#             mse += loss.item()
-#             output = output.cpu().numpy()
-#             target = target.cpu().numpy()
-#             psnr += peak_signal_noise_ratio(output, target, data_range=1.0)
-#             save_name = f"structure{feature_counter}.npy"
-#             output_np = output.squeeze(axis=0).squeeze(axis=0)
-#             np.save(os.path.join(save_path, save_name), output_np)
-#             feature_counter += 1
-#             for i in range(len(output)):
-#                 output_i = output[i]
-#                 target_i = target[i]
-#                 ssim_i = structural_similarity(output_i, target_i, data_range=1.0, channel_axis=0)
-#                 ssim += ssim_i
-#         mse /= len(test_loader)
-#         psnr /= len(test_loader)
-#         ssim /= (len(test_loader) * len(output))
-#     return mse, psnr, ssim
+def test_GMAR(model, test_loader, criterion, device):
+    model.eval()
+    mse = 0.0
+    psnr = 0.0
+    ssim = 0.0
+    save_path = "data/data_C3/structure_weak"
+    feature_counter = 1
+    with torch.no_grad():
+        for input, target in test_loader:
+            input, target = input.float(), target.float()
+            input = input.cuda()
+            target = target.cuda()
+            output = model(input)
+            loss = criterion(output, target)
+            mse += loss.item()
+            output = output.cpu().numpy()
+            target = target.cpu().numpy()
+            psnr += peak_signal_noise_ratio(output, target, data_range=1.0)
+            save_name = f"structure{feature_counter}.npy"
+            output_np = output.squeeze(axis=0).squeeze(axis=0)
+            np.save(os.path.join(save_path, save_name), output_np)
+            feature_counter += 1
+            for i in range(len(output)):
+                output_i = output[i]
+                target_i = target[i]
+                ssim_i = structural_similarity(output_i, target_i, data_range=1.0, channel_axis=0)
+                ssim += ssim_i
+        mse /= len(test_loader)
+        psnr /= len(test_loader)
+        ssim /= (len(test_loader) * len(output))
+    return mse, psnr, ssim
 
 def test_PconvUnet(model, test_loader, criterion):
     model.eval()

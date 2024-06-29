@@ -74,24 +74,3 @@ class MyDataset(Dataset):
 
         plt.tight_layout()
         plt.show()
-
-
-if __name__ == "__main__":
-
-    feature_path = "../data/data_C3/features"
-    seismic_dataset = MyDataset(feature_path)
-    train_size = int(0.8 * len(seismic_dataset))
-    test_size = len(seismic_dataset) - train_size
-    train_dataset, val_dataset = torch.utils.data.random_split(seismic_dataset, [train_size, test_size])
-
-    train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                               batch_size=1,
-                                               shuffle=True)
-    val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
-                                               batch_size=1,
-                                               shuffle=False)
-    print('train_data size:', len(train_dataset))
-    print('train_loader:', len(train_loader))
-    print('val_dataset size:', len(seismic_dataset))
-    print('val_loader:', len(val_loader))
-    seismic_dataset.visualize(1)

@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class MS_SSIM_L1_LOSS(nn.Module):
-    # Have to use cuda, otherwise the speed is too slow.
     def __init__(self, gaussian_sigmas=[0.5, 1.0, 2.0, 4.0, 8.0],
                  data_range=1.0,
                  K=(0.01, 0.03),
