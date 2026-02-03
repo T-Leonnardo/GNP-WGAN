@@ -17,23 +17,16 @@ The core idea: rather than directly reconstructing missing seismic traces from i
 
 ## Method
 
-### Two-Stage Pipeline
+### Architecture
 
-```
-Stage 1: Structure Prior Prediction (GMAR)
-┌──────────────┐      ┌───────────────────┐      ┌──────────────────┐
-│  Incomplete   │      │       GMAR        │      │  Predicted NLE   │
-│ Seismic Data  │─────>│  (Axial Attention  │─────>│ Structure Prior   │
-│   + Mask      │      │ + Causal Attention)│      │                  │
-└──────────────┘      └───────────────────┘      └──────────────────┘
+<p align="center">
+  <img src="figs/architecture.png" width="100%">
+</p>
 
-Stage 2: Seismic Reconstruction (GNP-WGAN)
-┌──────────────┐      ┌───────────────────┐      ┌──────────────────┐
-│  Incomplete   │      │    GNP-WGAN-GP    │      │  Reconstructed   │
-│ Seismic Data  │─────>│   (U-Net Gen +    │─────>│  Seismic Data    │
-│ + NLE Prior   │      │  PatchGAN Disc)   │      │                  │
-└──────────────┘      └───────────────────┘      └──────────────────┘
-```
+The framework consists of two stages:
+
+- **Stage 1 — GMAR (upper)**: Takes incomplete seismic data *I_mask* and the corresponding NLE-extracted structure as input. The GMAR module uses dual-branch **Causal Attention Blocks** and **Axial Attention Blocks** (8 each) to predict the full NLE structure prior *I_p* for both observed and missing regions.
+- **Stage 2 — GNP-WGAN (lower)**: The incomplete seismic data is combined with the predicted structure prior *I_p*, and fed into the Generator **G** (U-Net) to produce the reconstructed seismic data *I_g*. The PatchGAN Discriminator **D** is trained to distinguish between reconstructed *I_g* and real *I_real* data using WGAN-GP.
 
 ### NLE (Non-Local Edge) Extraction
 
@@ -77,6 +70,24 @@ A U-Net architecture with skip connections for seismic reconstruction:
 - **Critic iterations**: Discriminator updated 5 times per Generator update
 - **Optimizer**: AdamW (β₁=0.5, β₂=0.9)
 - **Weight Init**: Normal(0, 0.02) for Conv/ConvTranspose, constant for GroupNorm
+
+## Results
+
+### Random Missing Traces
+
+Reconstruction results under random missing trace patterns. Each group shows (from left to right): input with missing traces, reconstruction results from different methods, and the ground truth. The middle rows display the corresponding error maps and SSIM maps.
+
+<p align="center">
+  <img src="figs/result_random.jpg" width="100%">
+</p>
+
+### Continuous Missing Traces
+
+Reconstruction results under continuous missing trace patterns (block removal). Each group follows the same layout as above.
+
+<p align="center">
+  <img src="figs/result_continuous.jpg" width="100%">
+</p>
 
 ## Project Structure
 
