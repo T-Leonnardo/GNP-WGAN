@@ -1,6 +1,13 @@
 # GNP-WGAN
 
-**GNP-WGAN: Generative Non-Local A Priori Augmented Wasserstein Generative Adversarial Networks for Seismic Data Reconstruction**
+**GNP-WGAN: Generative Nonlocal A Priori Augmented Wasserstein Generative Adversarial Networks for Seismic Data Reconstruction**
+
+[![IEEE TGRS](https://img.shields.io/badge/IEEE-TGRS%202024-blue)](https://ieeexplore.ieee.org/document/10604911)
+[![DOI](https://img.shields.io/badge/DOI-10.1109%2FTGRS.2024.3431243-green)](https://doi.org/10.1109/TGRS.2024.3431243)
+
+> **Paper**: [GNP-WGAN: Generative Nonlocal A Priori Augmented Wasserstein Generative Adversarial Networks for Seismic Data Reconstruction](https://ieeexplore.ieee.org/document/10604911)  
+> **Authors**: Rui Yao, Kewen Li, Yimin Dou, Zhifeng Xu, Mei Wang  
+> **Published in**: *IEEE Transactions on Geoscience and Remote Sensing*, vol. 62, pp. 1–12, 2024
 
 ## Overview
 
@@ -208,14 +215,18 @@ model.load_state_dict(torch.load('ckpts/WGAN_generator.pth'))
 
 ## Citation
 
-If you find this work useful, please cite:
+If you find this work useful, please cite our paper:
 
 ```bibtex
-@misc{GNP-WGAN,
-  title={GNP-WGAN: Generative Non-Local A Priori Augmented Wasserstein Generative Adversarial Networks for Seismic Data Reconstruction},
-  author={T-Leonnardo},
-  url={https://github.com/T-Leonnardo/GNP-WGAN},
-  year={2024}
+@article{yao2024gnpwgan,
+  title={GNP-WGAN: Generative Nonlocal A Priori Augmented Wasserstein Generative Adversarial Networks for Seismic Data Reconstruction},
+  author={Yao, Rui and Li, Kewen and Dou, Yimin and Xu, Zhifeng and Wang, Mei},
+  journal={IEEE Transactions on Geoscience and Remote Sensing},
+  volume={62},
+  pages={1--12},
+  year={2024},
+  publisher={IEEE},
+  doi={10.1109/TGRS.2024.3431243}
 }
 ```
 
